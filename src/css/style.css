@@ -1,0 +1,10 @@
+/*Margem Esquerda*/
+.margemEsquerda{
+    margin-left: 10px;
+}
+
+/*Checkbox*/
+.mostrarsenha{
+    cursor: pointer;
+    margin-left: 10px;
+}

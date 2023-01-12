@@ -1,23 +1,15 @@
 <?php
 include_once 'database.php';
 
-session_start();
-
-if(isset($_SESSION['id']) && empty($_SESSION['id']) == false){
+if(isset($_POST['email']) && empty($_POST['email']) == false){
     $email = addslashes($_POST['email']);
     $senha = addslashes($_POST['senha']);
 
-    $sql = $pdo->query("SELECT * FROM pessoas WHERE email = '$email' AND senha = '$senha'");
+    $sql = "INSERT INTO pessoas SET email = '$email', senha = '$senha'";
+    $sql = $pdo->query($sql);
 
-    if($sql->rowCount() > 0){
-        $query = $sql->fetch();
-
-        $_SESSION['id'] = $query['id'];
-
-        header("Location: index.php");
-    }
+    header("Location: login.php");
 }
-
 
 
 ?>
@@ -28,13 +20,13 @@ if(isset($_SESSION['id']) && empty($_SESSION['id']) == false){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Cadastrar</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link href="src/css/style.css" rel="stylesheet">
 </head>
 <body>
     <div class="container"> 
-        <h3 class="mt-5">Tela de Acesso ao Usuário</h3>
+        <h3 class="mt-5">Cadastro de Usuário</h3>
         <form method="POST" class="mt-5">
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Email</label>
@@ -48,8 +40,8 @@ if(isset($_SESSION['id']) && empty($_SESSION['id']) == false){
             </div>
             <!-- position-absolute top-50 start-50 -->
             <div class="d-grid gap-2 col-6 mx-auto mt-5">
-                <input class="btn btn-primary" type="submit" value="Entrar" />
-                <a href="cadastrar.php" class="btn btn-info">Cadastrar</a>
+                <input class="btn btn-primary" type="submit" value="Cadastrar" />
+                <a href="login.php" class="btn btn-info">Página Inicial</a>
             </div>
             
         </form>
