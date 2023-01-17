@@ -8,3 +8,12 @@
     cursor: pointer;
     margin-left: 10px;
 }
+
+
+
+/*------------------------Página index---------------------------------*/
+
+.btnLogout{
+    position: fixed;
+    right: 60px;
+}

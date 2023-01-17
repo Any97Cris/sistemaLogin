@@ -3,11 +3,12 @@ include_once 'database.php';
 
 session_start();
 
-if(isset($_SESSION['id']) && empty($_SESSION['id']) == false){
-    $email = addslashes($_POST['email']);
+if(isset($_POST['email']) && empty($_POST['email']) == false){
+    $email = addslashes($_POST['email']);    
     $senha = addslashes($_POST['senha']);
+    $cripto = md5($senha);
 
-    $sql = $pdo->query("SELECT * FROM pessoas WHERE email = '$email' AND senha = '$senha'");
+    $sql = $pdo->query("SELECT * FROM pessoas WHERE email = '$email' AND senha = '$cripto'");
 
     if($sql->rowCount() > 0){
         $query = $sql->fetch();
@@ -34,11 +35,11 @@ if(isset($_SESSION['id']) && empty($_SESSION['id']) == false){
 </head>
 <body>
     <div class="container"> 
-        <h3 class="mt-5">Tela de Acesso ao Usuário</h3>
+        <h3 class="mt-5">Login</h3>
         <form method="POST" class="mt-5">
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Email</label>
-                <input type="email" required class="form-control" name="email" id="exampleFormControlInput1" placeholder="nome@exemplo.com">
+                <input type="email" required class="form-control" name="email" placeholder="nome@exemplo.com">
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Senha</label>

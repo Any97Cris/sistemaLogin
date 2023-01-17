@@ -1,14 +1,41 @@
 <?php
 include_once 'database.php';
 
-if(isset($_POST['email']) && empty($_POST['email']) == false){
-    $email = addslashes($_POST['email']);
-    $senha = addslashes($_POST['senha']);
+if(!empty($_GET['codigo'])){
+    $codigo = addslashes($_GET['codigo']);
 
-    $sql = "INSERT INTO pessoas SET email = '$email', senha = '$senha'";
+    $sql = "SELECT * FROM pessoas WHERE codigo = '$codigo'";    
     $sql = $pdo->query($sql);
 
+    if($sql->rowCount() == 0){
+        header("Location: login.php");
+        exit;
+    }
+}else{
     header("Location: login.php");
+    exit;
+}
+
+if(!empty($_POST['email'])){
+    $email = addslashes($_POST['email']);
+    $senha = md5($_POST['senha']);
+
+    $sql = "SELECT * FROM pessoas WHERE email = '$email'";
+    $sql = $pdo->query($sql);
+    
+    if($sql->rowCount() <= 0){
+
+        $codigo = md5(rand(0,99999).rand(0,99999));
+        $sql = "INSERT INTO pessoas(email,senha,codigo) VALUES ('$email', '$senha','$codigo')";
+        $sql = $pdo->query($sql);
+
+        unset($_SESSION['id']);
+
+        header("Location: login.php");
+        exit;
+    }
+
+    
 }
 
 
