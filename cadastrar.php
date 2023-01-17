@@ -4,10 +4,10 @@ include_once 'database.php';
 if(!empty($_GET['codigo'])){
     $codigo = addslashes($_GET['codigo']);
 
-    $sql = "SELECT * FROM pessoas WHERE codigo = '$codigo'";    
+    $sql = "SELECT * FROM pessoas WHERE codigo = '$codigo'";  
     $sql = $pdo->query($sql);
 
-    if($sql->rowCount() == 0){
+   if($sql->rowCount() == 0){
         header("Location: login.php");
         exit;
     }
